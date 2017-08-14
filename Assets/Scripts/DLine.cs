@@ -44,19 +44,7 @@ public class DLine {
 	}
 
 	public DLine(Vector3 startPoint, Vector3 endPoint, Material mat,string newName){
-		//Vector3[] sphereLocations = calculateSpawnLoc (startPoint,endPoint);
-		GameObject newLine = new GameObject (newName);
-
-		name = newName;
-		newLine.transform.position = startPoint;
-		for (int i = 0; i < 4; i++) {
-			GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-			sphere.name = (newName + "Sphere" + i);
-			sphere.AddComponent<SphereCollider> ();
-			sphere.transform.parent = newLine.transform;
-			sphere.transform.position = new Vector3 (startPoint.x + (i * 5),0,startPoint.y);
-		}
-		line = newLine.AddComponent<LineRenderer> ();
+		line = new GameObject(newName).AddComponent<LineRenderer> ();
 		lineMat = mat;
 		line.material = mat;
 		line.positionCount = 2;
@@ -65,6 +53,11 @@ public class DLine {
 		line.useWorldSpace = true;
 		line.SetPosition (0, startPoint);
 		line.SetPosition (1, endPoint);
+		GameObject test = new GameObject (newName + "Shit");
+		float x = Mathf.Sqrt(Mathf.Pow((endPoint.x - startPoint.x) / 2.0f,2f));
+		float y = Mathf.Sqrt(Mathf.Pow((endPoint.y - startPoint.y) / 2.0f,2f));
+		float z = Mathf.Sqrt(Mathf.Pow((endPoint.z - startPoint.z) / 2.0f,2f));
+		test.transform.position = new Vector3(x,y,z);
 	}
 
 	public void setStart(Vector3 newStart){
