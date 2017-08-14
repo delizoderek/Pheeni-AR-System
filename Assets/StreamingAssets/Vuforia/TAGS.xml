@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="Tag1" size="10.000000 10.000000" />
+    <ImageTarget name="Stones" size="10.000000 10.000000" />
+    <ImageTarget name="Tarmac" size="10.000000 10.000000" />
+    <ImageTarget name="Chips" size="10.000000 10.000000" />
+    <ImageTarget name="Tag4" size="10.000000 10.000000" />
+    <ImageTarget name="Tag3" size="10.000000 10.000000" />
+    <ImageTarget name="Tag2" size="10.000000 10.000000" />
+  </Tracking>
+</QCARConfig>
