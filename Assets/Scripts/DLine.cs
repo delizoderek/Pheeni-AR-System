@@ -11,7 +11,7 @@ public class DLine {
 	private float slope;
 	private float lineWidth = 1f;
 	private string name = "NewLine";
-	private ArrayList<Vector3> points = new ArrayList<Vector3>();
+	private ArrayList<GameObject> points = new ArrayList<GameObject>();
 
 	public DLine(){
 		line = new GameObject (name).AddComponent<LineRenderer> ();
@@ -53,11 +53,7 @@ public class DLine {
 		line.useWorldSpace = true;
 		line.SetPosition (0, startPoint);
 		line.SetPosition (1, endPoint);
-		GameObject test = new GameObject (newName + "Shit");
-		float x = Mathf.Sqrt(Mathf.Pow((endPoint.x - startPoint.x) / 2.0f,2f));
-		float y = Mathf.Sqrt(Mathf.Pow((endPoint.y - startPoint.y) / 2.0f,2f));
-		float z = Mathf.Sqrt(Mathf.Pow((endPoint.z - startPoint.z) / 2.0f,2f));
-		test.transform.position = new Vector3(x,y,z);
+		orbs (startPoint, endPoint).transform.parent = line.gameObject.transform;
 	}
 
 	public void setStart(Vector3 newStart){
@@ -90,30 +86,42 @@ public class DLine {
 		return name;
 	}
 
-	private void getPoints(Vector3 start, Vector3 end){
-		Vector3 midpoint = (end - start) / 2.0f;
-		Vector3 startCopy = start;
-		Vector3 endCopy = end;
-		int depth = 2;
-		points.insert (midpoint);
-		endCopy = midpoint;
-		midpoint = (midpoint - start) / 2.0f;
-		points.insert (midpoint);
-		Vector3 midpointLeft = (midpoint - endCopy) / 2.0f;
-		Vector3 midpointRight = (startCopy - midpoint) / 2.0f;
-		points.insert (midpointLeft);
-		points.insert (midpointRight);
+	public void updateOrbPos(Vector3 newStart, Vector3 newEnd){
+		Vector3 newPos = (newEnd - newStart) / (newEnd - newStart).magnitude;
+		float distance = (newEnd - newStart).magnitude;
+		newPos *= distance / 6f;
+		for (int i = 0; i < points.size (); i++) {
+			points.get (i).transform.position = newStart + (newPos * (i + 1));
+		}
 	}
 
-	private void getPoints(Vector3 start, Vector3 end,int depth){
-		Vector3 midpoint = (end - start) / 2.0f;
-		Debug.Log (depth);
-		if (depth > 0) {
-			depth--;
-			getPoints (start, midpoint,depth);
-			getPoints (midpoint, start,depth);
-		} else {
-			points.insert (midpoint);
+	public void lineVisibility(bool active){
+		line.gameObject.SetActive (active);
+	}
+
+	public void hideLine(){
+		line.gameObject.SetActive (false);
+	}
+
+	public void setParent(Transform parental){
+		line.gameObject.transform.parent = parental;
+	}
+
+	public GameObject orbs(Vector3 start, Vector3 end){
+		Vector3 starting = (end - start)/(end - start).magnitude;
+		float distance = (end - start).magnitude;
+		starting *= distance / 6;
+		GameObject holder = new GameObject ("holder");
+		holder.transform.position = start;
+		for (int i = 1; i < 6; i++) {
+			GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+			sphere.GetComponent<SphereCollider> ().isTrigger = true;
+			sphere.AddComponent<OrbDestruction> ();
+			sphere.transform.localScale = new Vector3 (5f, 5f, 5f);
+			sphere.transform.position = start + (starting * i);
+			sphere.transform.parent = holder.transform;
+			points.insert (sphere);
 		}
+		return holder;
 	}
 }

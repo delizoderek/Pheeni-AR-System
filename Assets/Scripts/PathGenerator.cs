@@ -27,9 +27,22 @@ public class PathGenerator : MonoBehaviour {
 		}
 	}
 
+	public void hidePath(){
+		for (int i = 0; i < lines.Length; i++) {
+			
+		}
+	}
+
+	public void showPath(){
+		for (int i = 0; i < lines.Length; i++) {
+
+		}
+	}
+
 	public void GeneratePath(){
 		for (int i = 0; i < pattern.Length - 1; i++) {
 			lines[i] = new DLine (pattern[i].transform.position,pattern[i + 1].transform.position,lineMat,"line " + i);
+			lines [i].setParent (pattern [i].transform);
 		}
 		pathCreated = true;
 	}
@@ -38,6 +51,7 @@ public class PathGenerator : MonoBehaviour {
 		for (int i = 0; i <  pattern.Length - 1; i++) {
 			lines [i].setStart (pattern [i].transform.position);
 			lines [i].setEnd (pattern[i + 1].transform.position);
+			lines [i].updateOrbPos (pattern [i].transform.position, pattern [i + 1].transform.position);
 		}
 	}
 }

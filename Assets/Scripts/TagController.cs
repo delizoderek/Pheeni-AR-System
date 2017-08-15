@@ -35,7 +35,7 @@ public class TagController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name.Equals ("Sphere")) {
+		if (col.gameObject.name.Equals ("Player")) {
 			hasArrived = true;
 		}
 	}

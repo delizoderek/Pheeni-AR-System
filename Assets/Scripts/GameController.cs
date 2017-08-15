@@ -9,31 +9,26 @@ public class GameController : MonoBehaviour {
 	public Material lineMat;
 	public GameObject player;
 	public GameObject[] targetList;
+	public Dropdown menu;
 
 	private LightPulse source;
-	//string[] pattern = {"Tag 1","Tag 2","Tag 4","Tag 3","Tag 1"};
-	string[] pattern = {"Stamp 1","Stamp 2","Stamp 3","Stamp 4","Stamp 1"};
+	string[] pattern = {"Tag 1","Tag 2","Tag 4","Tag 3","Tag 1"};
+	//string[] pattern = {"Stamp 1","Stamp 2","Stamp 3","Stamp 4","Stamp 1"};
 	string[] pattern1 = {"Tag 2","Tag 4","Tag 1"};
 	string[] pattern2 = {"Tag 3","Tag 4","Tag 2"};
 	string[] pattern3 = {"Tag 2","Tag 4","Tag 3","Tag 1"};
 	string[] instructions = { "", "r,90", "r,90", "r,90" };
 	int step;
 
-	bool isMoving = false;
 	RaycastHit tagCheck;
 	Vector3 central = new Vector3 (0, 0.5f, 0);
 	GameObject nextTag;
-	Dropdown menu;
 	LineRenderer line;
 
 
 	// Use this for initialization
 	void Start () {
 		step = 0;
-	}
-
-	public void testRecursion(){
-		
 	}
 	
 	// Update is called once per frame
@@ -97,12 +92,10 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void stop(){
-		isMoving = false;
 		step++;
 	}
 
 	public void clickToMove(){
-		isMoving = true;
 		if (instructions [step].Contains ("r")) {
 			string cmd = instructions [step].Split (',')[1];
 			float degrees = float.Parse(cmd);
@@ -112,23 +105,15 @@ public class GameController : MonoBehaviour {
 
 	public void valueChange(){
 		int selection = menu.value;
-		Debug.Log (selection);
 		switch (selection) {
 		case 0:
-			step = 0;
-			pattern = pattern1;
-			player.transform.parent = GameObject.Find (pattern [pattern.Length - 1]).transform;
-			player.transform.position = new Vector3 (0, 0.2f, 0);
+			//Pattern 1
 			break;
 		case 1:
-			pattern = pattern2;
-			player.transform.parent = GameObject.Find (pattern [pattern.Length - 1]).transform;
-			player.transform.position = new Vector3 (0, 0.2f, 0);
+			//Pattern 2
 			break;
 		case 2:
-			pattern = pattern3;
-			player.transform.parent = GameObject.Find (pattern [pattern.Length - 1]).transform;
-			player.transform.position = new Vector3 (0, 0.2f, 0);
+			//Pattern 3
 			break;
 		}
 	}
