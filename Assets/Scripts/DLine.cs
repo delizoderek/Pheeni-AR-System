@@ -117,7 +117,7 @@ public class DLine {
 			GameObject sphere = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 			sphere.GetComponent<SphereCollider> ().isTrigger = true;
 			sphere.AddComponent<OrbDestruction> ();
-			sphere.transform.localScale = new Vector3 (5f, 5f, 5f);
+			sphere.transform.localScale = new Vector3 (3f, 3f, 3f);
 			sphere.transform.position = start + (starting * i);
 			sphere.transform.parent = holder.transform;
 			points.insert (sphere);

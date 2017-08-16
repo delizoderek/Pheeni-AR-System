@@ -45,17 +45,6 @@ public class GameController : MonoBehaviour {
 				step = 0;
 			}
 		}
-		/*
-		if (Input.GetKeyDown (KeyCode.W)) {
-			isMoving = true;
-		}
-
-		//raycastChecker ();
-
-		if (isMoving) {
-			player.transform.Translate (Vector3.forward * Time.deltaTime * 5);
-		}
-		*/
 	}
 
 	int findTagIndex(string t){
@@ -67,24 +56,6 @@ public class GameController : MonoBehaviour {
 			}
 		}
 		return retVal;
-	}
-
-	private void checkStop(){
-		
-	}
-
-	private void raycastChecker(){
-		if (Physics.Raycast (player.transform.position, player.transform.TransformDirection (Vector3.down), out tagCheck, 100, tag)) {
-			string name = tagCheck.collider.gameObject.name;
-			if (name.Equals (nextTag.GetComponent<TagController>().currentTag.name)) {
-				player.transform.parent = GameObject.Find (pattern[step]).transform;
-				nextTag.GetComponent<TagController> ().setRange ();
-
-				if (nextTag.GetComponent<TagController> ().isPulsing ()) {
-					nextTag.GetComponent<TagController> ().disablePulse ();
-				}
-			}
-		}
 	}
 
 	public string playerName(){
