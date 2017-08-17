@@ -92,7 +92,7 @@ public class GameController : MonoBehaviour {
 	public GameObject[] getPattern(){
 		GameObject[] gamePattern = new GameObject[pattern.Length];
 		for (int i = 0; i < pattern.Length; i++) {
-			gamePattern[i] = targetList[findTagIndex(pattern[i])];
+			gamePattern[i] = targetList[findTagIndex(pattern[i])].GetComponent<TagController>().currentTag;
 		}
 		return gamePattern;
 	}

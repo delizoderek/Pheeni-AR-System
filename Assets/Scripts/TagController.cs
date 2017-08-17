@@ -18,8 +18,8 @@ public class TagController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		BoxCollider collider = gameObject.AddComponent<BoxCollider> ();
-		Vector3 colliderCenter = new Vector3 (0, 0, -0.25f);
-		Vector3 colliderSize = new Vector3 (10f, 8f, 10f);
+		Vector3 colliderCenter = currentTag.gameObject.transform.position / 10;
+		Vector3 colliderSize = new Vector3 (1f, 2f, 1f);
 		collider.center = colliderCenter;
 		collider.size = colliderSize;
 		collider.isTrigger = true;
@@ -35,7 +35,7 @@ public class TagController : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider col){
-		if (col.gameObject.name.Equals ("Player")) {
+		if (col.gameObject.name.Equals ("Sphere")) {
 			hasArrived = true;
 		}
 	}
