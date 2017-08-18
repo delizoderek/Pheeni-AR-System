@@ -24,9 +24,9 @@ public class LightPulse : MonoBehaviour {
 		}
 
 		if (glowing) {
-			source.range += 0.05f;
+			source.range += 0.1f;
 		} else {
-			source.range -= 0.05f;
+			source.range -= 0.1f;
 		}
 	}
 }

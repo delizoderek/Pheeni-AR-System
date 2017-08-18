@@ -11,8 +11,12 @@ public class GameController : MonoBehaviour {
 	public GameObject player;
 	public GameObject[] targetList;
 	public Dropdown menu;
+	public Text scoreBox;
+	public Text nextCheck;
 
 	private LightPulse source;
+	private int score;
+
 	string[] pattern = {"Tag 1","Tag 2","Tag 3","Tag 4","Tag 1"};
 	//string[] pattern = {"Stamp 1","Stamp 2","Stamp 3","Stamp 4","Stamp 1"};
 	string[] pattern1 = {"Tag 2","Tag 4","Tag 1"};
@@ -28,6 +32,9 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		step = 0;
+		score = 0;
+		scoreBox.text = "Score: " + score;
+		nextCheck.text = "Next Tag: " + pattern [0];
 	}
 	
 	// Update is called once per frame
@@ -40,10 +47,19 @@ public class GameController : MonoBehaviour {
 		if (nextTag.GetComponent<TagController>().objectArrival()) {
 			nextTag.GetComponent<TagController> ().disablePulse ();
 			step++;
+			nextCheck.text = "Next Tag: " + pattern [step];
 			if(step >= targetList.Length){
 				step = 0;
 			}
 		}
+
+
+
+	}
+
+	public void UpdateScore(){
+		++score;
+		scoreBox.text = "Score: " + score;
 	}
 
 	int findTagIndex(string t){
@@ -81,7 +97,7 @@ public class GameController : MonoBehaviour {
 		int selection = menu.value;
 		switch (selection) {
 		case 0:
-			
+			//Pattern 1
 			break;
 		case 1:
 			//Pattern 2
