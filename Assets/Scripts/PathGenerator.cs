@@ -14,12 +14,17 @@ public class PathGenerator : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		controller = GameObject.Find ("GameController").GetComponent<GameController>();
+		StartCoroutine (checkPathReady ());
 		pattern = controller.getPattern ();
 		lines = new DLine[pattern.Length - 1];
 		pathCreated = false;
 		GeneratePath ();
 	}
-	
+
+	IEnumerator checkPathReady(){
+		yield return new WaitUntil(() => controller.patternReady() == true);
+	}
+
 	// Update is called once per frame
 	void Update () {
 		if (pathCreated) {

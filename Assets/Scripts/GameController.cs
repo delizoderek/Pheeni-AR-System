@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Vuforia;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -12,16 +13,14 @@ public class GameController : MonoBehaviour {
 	public Dropdown menu;
 
 	private LightPulse source;
-	string[] pattern = {"Tag 1","Tag 2","Tag 4","Tag 3","Tag 1"};
+	string[] pattern = {"Tag 1","Tag 2","Tag 3","Tag 4","Tag 1"};
 	//string[] pattern = {"Stamp 1","Stamp 2","Stamp 3","Stamp 4","Stamp 1"};
 	string[] pattern1 = {"Tag 2","Tag 4","Tag 1"};
 	string[] pattern2 = {"Tag 3","Tag 4","Tag 2"};
-	string[] pattern3 = {"Tag 2","Tag 4","Tag 3","Tag 1"};
-	string[] instructions = { "", "r,90", "r,90", "r,90" };
+	string[] pattern3 = {"Tag 1","Tag 2","Tag 3","Tag ","Tag 1"};
 	int step;
 
 	RaycastHit tagCheck;
-	Vector3 central = new Vector3 (0, 0.5f, 0);
 	GameObject nextTag;
 	LineRenderer line;
 
@@ -62,23 +61,27 @@ public class GameController : MonoBehaviour {
 		return player.name;
 	}
 
-	public void stop(){
-		step++;
+	public bool patternReady(){
+		bool allDetected = true;
+		for (int i = 0; i < pattern.Length - 1; i++) {
+			TrackableBehaviour tb = targetList [i].GetComponent<TrackableBehaviour> ();
+			if (tb.CurrentStatus == TrackableBehaviour.Status.NOT_FOUND) {
+				allDetected = false;
+				break;
+			}
+		}
+		return allDetected;
 	}
 
-	public void clickToMove(){
-		if (instructions [step].Contains ("r")) {
-			string cmd = instructions [step].Split (',')[1];
-			float degrees = float.Parse(cmd);
-			player.transform.Rotate (new Vector3 (0, degrees, 0));
-		}
+	public void stop(){
+		step++;
 	}
 
 	public void valueChange(){
 		int selection = menu.value;
 		switch (selection) {
 		case 0:
-			//Pattern 1
+			
 			break;
 		case 1:
 			//Pattern 2
@@ -92,7 +95,7 @@ public class GameController : MonoBehaviour {
 	public GameObject[] getPattern(){
 		GameObject[] gamePattern = new GameObject[pattern.Length];
 		for (int i = 0; i < pattern.Length; i++) {
-			gamePattern[i] = targetList[findTagIndex(pattern[i])].GetComponent<TagController>().currentTag;
+			gamePattern[i] = targetList[findTagIndex(pattern[i])].GetComponent<TagController>().linePoint;
 		}
 		return gamePattern;
 	}

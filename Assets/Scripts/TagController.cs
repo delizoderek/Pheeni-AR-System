@@ -5,8 +5,8 @@ using UnityEngine;
 public class TagController : MonoBehaviour {
 
 	public GameObject currentTag;
+	public GameObject linePoint;
 	public GameObject source;
-	bool inRange = false;
 
 	private GameObject pheeni;
 	private bool active;
@@ -18,9 +18,9 @@ public class TagController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		BoxCollider collider = gameObject.AddComponent<BoxCollider> ();
-		Vector3 colliderCenter = currentTag.gameObject.transform.position / 10;
+		Vector3 colliderCenter = currentTag.gameObject.transform.position;
 		Vector3 colliderSize = new Vector3 (1f, 2f, 1f);
-		collider.center = colliderCenter;
+		collider.center = transform.InverseTransformPoint(colliderCenter);
 		collider.size = colliderSize;
 		collider.isTrigger = true;
 
@@ -42,10 +42,6 @@ public class TagController : MonoBehaviour {
 
 	void OnTriggerExit(Collider col){
 		hasArrived = false;
-	}
-
-	public void setRange(){
-		inRange = true;
 	}
 
 	public void enablePulse(){
