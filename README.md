@@ -1,1 +1,2 @@
-PheeniGame
+# Pheeni AR System
+The pheeni AR system is an addon to the theraputic rehabilitative personal robot built by a capstone group at the University of Washington Bothell. The game uses 5 image targets to build a simple pacman game. 4 of the image targets mark the location of the RFID checkpoints and 1 image target goes on top of the robot to track its position in virtual space. As the robot goes from tag to tag in the real world, the virtual world will have items that the character picks up and it will highlight the next tage the robot will be going to.
